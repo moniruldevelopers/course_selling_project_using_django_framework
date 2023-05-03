@@ -23,34 +23,37 @@
     </header>
     <!-- Card -->
             <div class="card" style="width:80%;margin-left:10%;">
+                {% include 'components/msg.html' %}
+                <br>
               <div class="card-body" >
 
-                <form>
+                <form method="post" action="{% url 'profile_update' %}">
+                    {% csrf_token %}
 
                   <div class="row">
                         <div class="col">
                             <div class="form-group mb-4">
                               <label>First Name</label>
-                             <input type="text" class="form-control"  placeholder="Enter First Name" name="first_name" value="{{ user.first_name }}">
+                             <input type="text" class="form-control"  placeholder="Enter First Name" name="first_name" value="{{user.first_name}}">
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-group mb-4">
                               <label>Last Name</label>
-                              <input type="text" class="form-control" placeholder="Enter Last Name" name="last_name">
+                              <input type="text" class="form-control" placeholder="Enter Last Name" name="last_name" value="{{user.last_name}}">
                             </div>
                         </div>
                         <div class="w-100"></div>
                         <div class="col">
                              <div class="form-group mb-4">
                                 <label>Email address</label>
-                                <input type="email" class="form-control" placeholder="Enter Email" name="email">
+                                <input type="email" class="form-control" placeholder="Enter Email" name="email" value="{{user.email}}" readonly>
                              </div>
                         </div>
                         <div class="col">
                             <div class="form-group mb-4">
                                <label>Username</label>
-                               <input type="text" class="form-control" placeholder="Enter Username" name="username">
+                               <input type="text" class="form-control" placeholder="Enter Username" name="username" value="{{user.username}}" readonly>
                             </div>
                         </div>
                       <div class="col-12">
