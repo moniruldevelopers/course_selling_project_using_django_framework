@@ -1,7 +1,7 @@
 from django.shortcuts import redirect, render
 from django.contrib.auth.models import User
 from django.contrib import messages
-# from app.EmailBackEnd import EmailBackEnd
+from .EmailBackEnd import EmailBackEnd
 from django.contrib.auth import authenticate, login, logout
 
 
@@ -46,4 +46,8 @@ def DO_LOGIN(request):
         else:
             messages.error(request, 'Email and Password Are Invalid !')
             return redirect('login')
+
+
+def PROFILE(request):
+    return render(request, 'registration/profile.html')
 
