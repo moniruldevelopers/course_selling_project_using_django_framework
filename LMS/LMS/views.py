@@ -20,10 +20,12 @@ def HOME(request):
 
 def SINGLE_COURSE(request):
     category = Categories.get_all_category(Categories)
+    course = Course.objects.all()
     level = Level.objects.all()
     context = {
         'category':category,
         'level': level,
+        'course': course
     }
     return render(request, 'Main/single_course.html', context)
 
