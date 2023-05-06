@@ -188,10 +188,10 @@
                     <div class="collapse position-absolute right-0 left-0" id="collapseSearchMobile">
                         <div class="card card-body p-4 mt-7 shadow-dark">
                             <!-- Search -->
-                            <form class="w-100">
+                            <form class="w-100" method="get" action="{% url 'search_course' %}">
                                 <div class="input-group border rounded">
                                     <div class="input-group-prepend">
-                                        <button class="btn btn-sm text-secondary icon-xs d-flex align-items-center" type="submit">
+                                        <button class="btn btn-sm text-secondary icon-xs d-flex align-items-center" type="submit" >
                                             <!-- Icon -->
                                             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M8.80758 0C3.95121 0 0 3.95121 0 8.80758C0 13.6642 3.95121 17.6152 8.80758 17.6152C13.6642 17.6152 17.6152 13.6642 17.6152 8.80758C17.6152 3.95121 13.6642 0 8.80758 0ZM8.80758 15.9892C4.8477 15.9892 1.62602 12.7675 1.62602 8.80762C1.62602 4.84773 4.8477 1.62602 8.80758 1.62602C12.7675 1.62602 15.9891 4.8477 15.9891 8.80758C15.9891 12.7675 12.7675 15.9892 8.80758 15.9892Z" fill="currentColor"/>
@@ -200,7 +200,7 @@
 
                                         </button>
                                     </div>
-                                    <input class="form-control form-control-sm border-0 ps-0" type="search" placeholder="What do you want to learn ?" aria-label="Search">
+                                    <input class="form-control form-control-sm border-0 ps-0" type="search" placeholder="What do you want to learn ?" aria-label="Search" name="query">
                                 </div>
                             </form>
                         </div>
