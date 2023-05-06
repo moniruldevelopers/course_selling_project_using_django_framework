@@ -3,6 +3,9 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from .EmailBackEnd import EmailBackEnd
 from django.contrib.auth import authenticate, login, logout
+from app.models import Categories
+
+
 
 
 def REGISTER(request):
@@ -49,7 +52,12 @@ def DO_LOGIN(request):
 
 
 def PROFILE(request):
-    return render(request, 'registration/profile.html')
+    category = Categories.get_all_category(Categories)
+    context = {
+        'category': category,
+    }
+
+    return render(request, 'registration/profile.html',context)
 
 
 def PROFILE_UPDATE(request):
