@@ -119,7 +119,7 @@ $(document).ready(function(){
 
 
                     <div class="border rounded mb-6 @@widgetBG">
-                        <!-- Heading -->
+                        <!-- Heading  price -->
                         <div id="coursefilter3">
                             <h4 class="mb-0">
                                 <button class="p-6 text-dark fw-medium d-flex align-items-center collapse-accordion-toggle line-height-one" type="button" data-bs-toggle="collapse" data-bs-target="#coursefiltercollapse3" aria-expanded="true" aria-controls="coursefiltercollapse3">
@@ -143,16 +143,16 @@ $(document).ready(function(){
                         <div id="coursefiltercollapse3" class="collapse show mt-n2 px-6 pb-6" aria-labelledby="coursefilter3" data-parent="#courseSidebar">
                             <ul class="list-unstyled list-group list-checkbox">
                                 <li class="custom-control custom-radio">
-                                    <input type="radio" id="pricecustomradio1" name="customRadio" class="custom-control-input">
-                                    <label class="custom-control-label font-size-base" for="pricecustomradio1">All (18)</label>
+                                    <input type="radio" id="price-1" name="customRadio" class="custom-control-input filter-checkbox" value="PriceAll" data-filter="price">
+                                    <label class="custom-control-label font-size-base" for="price-1">All (18)</label>
                                 </li>
                                 <li class="custom-control custom-radio">
-                                    <input type="radio" id="pricecustomradio2" name="customRadio" class="custom-control-input">
-                                    <label class="custom-control-label font-size-base" for="pricecustomradio2">Free (3)</label>
+                                    <input type="radio" id="price-2" name="customRadio" class="custom-control-input filter-checkbox" value="PriceFree" data-filter="price">
+                                    <label class="custom-control-label font-size-base" for="price-2">Free (3)</label>
                                 </li>
                                 <li class="custom-control custom-radio">
-                                    <input type="radio" id="pricecustomradio3" name="customRadio" class="custom-control-input">
-                                    <label class="custom-control-label font-size-base" for="pricecustomradio3">Paid (15)</label>
+                                    <input type="radio" id="price-3" name="customRadio" class="custom-control-input filter-checkbox" value="PricePaid" data-filter="price">
+                                    <label class="custom-control-label font-size-base" for="price-3">Paid (15)</label>
                                 </li>
                             </ul>
                         </div>
@@ -289,10 +289,16 @@ $(document).ready(function(){
                                             </ul>
                                         </div>
 
-                                         <div class="col-auto px-2 text-right">
+                                        {% if i.price == 0 %}
+                                            <div class="col-auto px-2 text-right">
+                                               <ins class="h4 mb-0 d-block mb-lg-n1"><span class="badge badge-primary">Free</span></ins>
+                                           </div>
+                                        {% else %}
+                                            <div class="col-auto px-2 text-right">
                                                <del class="font-size-sm">৳ {{i.price}}</del>
                                                <ins class="h4 mb-0 d-block mb-lg-n1">৳ {% discount_calculation i.price i.discount %}</ins>
-                                           </div>
+                                              </div>
+                                        {% endif %}
                                     </div>
                                 </div>
                             </div>

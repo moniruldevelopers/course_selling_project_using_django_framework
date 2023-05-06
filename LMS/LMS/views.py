@@ -34,8 +34,17 @@ def SINGLE_COURSE(request):
 def filter_data(request):
     category = request.GET.getlist('category[]')
     level = request.GET.getlist('level[]')
-    if category:
-        course = Course.objects.filter(category__id__in = category).order_by('-id')
+    price = request.GET.getlist('price[]')
+    print(price)
+
+    if price == ['PriceFree']:
+        course = Course.objects.filter(price=0)
+    elif price == ['PricePaid']:
+        course = Course.objects.filter(price__gte=1)
+    elif price == ['PriceAll']:
+        course = Course.objects.all()
+    elif category:
+        course = Course.objects.filter(category__id__in=category).order_by('-id')
     elif level:
         course = Course.objects.filter(level__id__in=level).order_by('-id')
     else:
@@ -44,7 +53,7 @@ def filter_data(request):
         'course': course
     }
 
-    t = render_to_string('ajax/course.html',context)
+    t = render_to_string('ajax/course.html', context)
     return JsonResponse({'data': t})
 
 
