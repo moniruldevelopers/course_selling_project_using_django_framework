@@ -1,7 +1,8 @@
 from django.shortcuts import redirect, render
-from app.models import Categories, Course, Level
+from app.models import Categories, Course, Level, Video
 from django.template.loader import render_to_string
 from django.http import JsonResponse
+from django.db.models import Sum
 
 
 def BASE(request):
@@ -66,9 +67,9 @@ def filter_data(request):
 def CONTACT_US(request):
     category = Categories.get_all_category(Categories)
     context = {
-        'category':category,
+        'category': category,
     }
-    return render(request, 'Main/contact_us.html',context)
+    return render(request, 'Main/contact_us.html', context)
 
 
 def ABOUT_US(request):
@@ -76,7 +77,7 @@ def ABOUT_US(request):
     context = {
         'category': category,
     }
-    return render(request, 'Main/about_us.html',context)
+    return render(request, 'Main/about_us.html', context)
 
 
 def SEARCH_COURSE(request):
@@ -84,7 +85,7 @@ def SEARCH_COURSE(request):
     course = Course.objects.filter(title__icontains=query)
     category = Categories.get_all_category(Categories)
 
-    context={
+    context = {
         'course': course,
         'category': category,
     }
@@ -92,8 +93,10 @@ def SEARCH_COURSE(request):
 
 
 def COURSE_DETAILS(request, slug):
-    course = Course.objects.filter(slug=slug)
     category = Categories.get_all_category(Categories)
+    time_duration = Video.objects.filter(course__slug=slug).aggregate(sum = Sum('time_duration'))
+
+    course = Course.objects.filter(slug=slug)
     if course.exists():
         course = course.first()
     else:
@@ -101,8 +104,9 @@ def COURSE_DETAILS(request, slug):
     context = {
         'course': course,
         'category': category,
+        'time_duration': time_duration,
     }
-    return render(request, 'course/course_details.html',context)
+    return render(request, 'course/course_details.html', context)
 
 
 def PAGE_NOT_FOUND(request):
@@ -110,4 +114,4 @@ def PAGE_NOT_FOUND(request):
     context = {
         'category': category,
     }
-    return render(request, 'error/404.html',context)
+    return render(request, 'error/404.html', context)
