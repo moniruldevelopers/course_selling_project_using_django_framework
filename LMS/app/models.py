@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.db import models
 from django.utils.text import slugify
 from django.db.models.signals import pre_save
@@ -38,6 +39,7 @@ class Language(models.Model):
     def __str__(self):
         return self.language
 
+
 class Course(models.Model):
     STATUS = (
         ('PUBLISH', 'PUBLISH'),
@@ -54,7 +56,7 @@ class Course(models.Model):
     description = models.TextField()
     price = models.IntegerField(null=True, default=0)
     discount = models.IntegerField(null=True)
-    language = models.ForeignKey(Language, on_delete=models.CASCADE,null=True)
+    language = models.ForeignKey(Language, on_delete=models.CASCADE, null=True)
     Deadline = models.CharField(max_length=100, null=True)
     slug = models.SlugField(default='', max_length=500, null=True, blank=True)
     status = models.CharField(choices=STATUS, max_length=100, null=True)
@@ -124,3 +126,13 @@ class Video(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class UserCource(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    paid = models.BooleanField(default=0)
+    date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.user.first_name + " - " + self.course.title

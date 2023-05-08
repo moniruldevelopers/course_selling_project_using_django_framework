@@ -27,3 +27,5 @@ admin.site.register(What_you_learn)
 admin.site.register(Requirements)
 admin.site.register(Lesson)
 admin.site.register(Language)
+
+admin.site.register(UserCource)
