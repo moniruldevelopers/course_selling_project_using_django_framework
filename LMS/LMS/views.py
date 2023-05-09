@@ -3,6 +3,7 @@ from app.models import Categories, Course, Level, Video, UserCource
 from django.template.loader import render_to_string
 from django.http import JsonResponse
 from django.db.models import Sum
+from django.contrib import messages
 
 
 def BASE(request):
@@ -132,7 +133,8 @@ def CHECKOUT(request,slug):
             course = course,
         )
         course.save()
-        return redirect('home')
+        messages.success(request, 'Course Are Success Fully Enrolled!')
+        return redirect('my_course')
     return render(request, 'checkout/checkout.html')
 
 
