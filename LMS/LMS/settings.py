@@ -144,3 +144,7 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'monirul.developers@gmail.com'
 EMAIL_HOST_PASSWORD = 'iyezocxdpwstnrnc'
+
+key_id = "rzp_test_JI1Rz7ht7MMrgt"
+key_secret = "Ls6rR3oHxZN6oykuuHN44sSp"
+

@@ -1,9 +1,15 @@
 from django.shortcuts import redirect, render
-from app.models import Categories, Course, Level, Video, UserCource
+from app.models import Categories, Course, Level, Video, UserCource, Payment
 from django.template.loader import render_to_string
 from django.http import JsonResponse
 from django.db.models import Sum
 from django.contrib import messages
+from .settings import *
+import razorpay
+
+client = razorpay.Client(auth=(key_id, key_secret))
+from time import time
+from django.views.decorators.csrf import csrf_exempt
 
 
 def BASE(request):
@@ -95,11 +101,11 @@ def SEARCH_COURSE(request):
 
 def COURSE_DETAILS(request, slug):
     category = Categories.get_all_category(Categories)
-    time_duration = Video.objects.filter(course__slug=slug).aggregate(sum = Sum('time_duration'))
+    time_duration = Video.objects.filter(course__slug=slug).aggregate(sum=Sum('time_duration'))
 
-    course_id = Course.objects.get (slug = slug )
+    course_id = Course.objects.get(slug=slug)
     try:
-        check_enroll = UserCource.objects.get (user = request.user, course = course_id)
+        check_enroll = UserCource.objects.get(user=request.user, course=course_id)
     except UserCource.DoesNotExist:
         check_enroll = None
     course = Course.objects.filter(slug=slug)
@@ -124,23 +130,137 @@ def PAGE_NOT_FOUND(request):
     return render(request, 'error/404.html', context)
 
 
-def CHECKOUT(request,slug):
-    course = Course.objects.get(slug = slug)
-
+def CHECKOUT(request, slug):
+    course = Course.objects.get(slug=slug)
+    action = request.GET.get('action')
+    order = None
     if course.price == 0:
         course = UserCource(
-            user = request.user,
-            course = course,
+            user=request.user,
+            course=course,
         )
         course.save()
         messages.success(request, 'Course Are Success Fully Enrolled!')
         return redirect('my_course')
-    return render(request, 'checkout/checkout.html')
+    elif action == 'create_payment':
+        if request.method == "POST":
+            first_name = request.POST.get('first_name')
+            last_name = request.POST.get('last_name')
+            country = request.POST.get('country')
+            address_1 = request.POST.get('address_1')
+            address_2 = request.POST.get('address_2')
+            city = request.POST.get('city')
+            status = request.POST.get('status')
+            postcode = request.POST.get('postcode')
+            phone = request.POST.get('phone')
+            email = request.POST.get('email')
+            order_comments = request.POST.get('order_comments')
+
+            amount = (course.price * 100)
+            currency = "INR"
+            notes = {
+                "name": f'{first_name} {last_name}',
+                "country": country,
+                "address": f'{address_1} {address_2}',
+                "city": city,
+                # "state": state,
+                "postcode": postcode,
+                "phone": phone,
+                "email": email,
+                "order_comments": order_comments,
+            }
+            receipt = f"SKOLA-{int(time())}"
+            order = client.order.create(
+                {
+                    'receipt': receipt,
+                    'notes': notes,
+                    'amount': amount,
+                    'currency': currency,
+                }
+            )
+            payment = Payment(
+                course=course,
+                user=request.user,
+                order_id=order.get('id')
+            )
+            payment.save()
+    context = {
+        'course': course,
+        'order': order,
+    }
+    return render(request, 'checkout/checkout.html', context)
 
 
 def MY_COURSE(request):
-    course = UserCource.objects.filter(user = request.user)
+    course = UserCource.objects.filter(user=request.user)
     context = {
-        'course' : course
+        'course': course
     }
-    return render(request, 'course/my-course.html',context)
+    return render(request, 'course/my-course.html', context)
+
+
+@csrf_exempt
+def VERIFY_PAYMENT(request):
+    if request.method == "POST":
+        data = request.POST
+        try:
+            client.utility.verify_payment_signature(data)
+            razorpay_order_id = data['razorpay_order_id']
+            razorpay_payment_id = data['razorpay_order_id']
+            payment = Payment.objects.get(order_id=razorpay_order_id)
+            payment.payment_id = razorpay_payment_id
+            payment.status = True
+            usercourse = UserCource(
+                user=payment.user,
+                course=payment.course,
+            )
+            usercourse.save()
+            payment.user_course = usercourse
+            payment.save()
+            context = {
+                'data': data,
+                'payment': payment,
+            }
+            return render(request, 'verify_payment/success.html', context)
+        except:
+            return render(request, 'verify_payment/faild.html')
+
+
+def WATCH_COURSE(request, slug):
+    course = Course.objects.filter(slug=slug)
+    lecture = request.GET.get('lecture')
+    video = Video.objects.get(id=lecture)
+    if course.exists():
+        course = course.first()
+    else:
+        return redirect('404')
+
+    context = {
+        'course': course,
+        'lecture': lecture,
+        'video' : video,
+    }
+
+    return render(request, 'course/watch-course.html', context)
+
+# def WATCH_COURSE(request, slug):
+#     lecture = request.GET.get('lecture')
+#     course_id = Course.objects.get(slug=slug)
+#     course = Course.objects.filter(slug=slug)
+#     try:
+#         check_enroll = UserCource.objects.get(user=request.user, course=course_id)
+#         video = Video.objects.get(id = lecture)
+#         if course.exists():
+#             course = course.first()
+#         else:
+#             return redirect('404')
+#     except UserCource.DoesNotExist:
+#         return redirect('404')
+#
+#     context = {
+#         'course': course,
+#         'video': video,
+#         'lecture': lecture,
+#
+#     }
+#     return render(request, 'course/watch_course.html', context)
