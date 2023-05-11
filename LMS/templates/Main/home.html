@@ -11,14 +11,14 @@
                 <div class="col-12 col-md-5 col-lg-5 order-md-2" data-aos="fade-in">
 
                     <!-- Image -->
-                    <img src="{% static 'assets/img/illustrations/illustration-5.svg' %}" class="img-fluid ms-xl-n11 mw-md-174 mb-6 mb-md-0" alt="...">
+                    <img src="{% static 'assets/img/illustrations/illustration-5.png' %}" class="img-fluid ms-xl-n11 mw-md-174 mb-6 mb-md-0" alt="...">
 
                 </div>
 
                 <div class="col-12 col-md-7 col-lg-7 order-md-1">
                     <!-- Heading -->
                     <h1 class="display-2 text-gradient-1 text-capitalize" data-aos="fade-left" data-aos-duration="150">
-                        Learn on your <span class="fw-bold">Schedule</span>
+                        <span class="fw-bold" >IQAC Online</span>  <span class="fw-bold">Courses</span>
                     </h1>
 
                     <!-- Text -->
@@ -27,7 +27,7 @@
                     </p>
 
                     <!-- Buttons -->
-                    <a href="course-list-v1.html" class="btn btn-tangerine btn-wide rounded-lg mb-4 mb-md-0 me-md-5 text-w" data-aos="fade-up" data-aos-duration="200">GET STARTED</a>
+                    <a href="{% url 'single_course' %}" class="btn btn-tangerine btn-wide rounded-lg mb-4 mb-md-0 me-md-5 text-w" data-aos="fade-up" data-aos-duration="200">GET STARTED</a>
                     <a href="{% url 'single_course' %}" class="btn btn-gigas btn-wide rounded-lg d-none d-lg-inline-block" data-aos="fade-up" data-aos-duration="200">VIEW COURSES</a>
                 </div>
             </div> <!-- / .row -->
@@ -44,7 +44,7 @@
 
 <!-- FEATURED PRODUCT
     ================================================== -->
-    <section class="pt-5 pb-9 py-md-11 bg-white">
+    <section class="pt-5 pb-9 py-md-4 bg-white">
         <div class="container container-wd">
             <div class="row align-items-end mb-7">
                 <div class="col-xl mb-5 mb-xl-0">
@@ -312,7 +312,7 @@
                     <p class="font-size-lg mb-0 text-capitalize">Cum doctus civibus efficiantur in imperdiet deterruisset.</p>
                 </div>
                 <div class="col-md-auto">
-                    <a href="course-list-v6.html" class="d-flex align-items-center fw-medium">
+                    <a href="/courses" class="d-flex align-items-center fw-medium">
                         Browse All
                         <div class="ms-2 d-flex">
                             <!-- Icon -->

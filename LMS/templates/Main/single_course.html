@@ -31,34 +31,34 @@ $(document).ready(function(){
 	});
 });
 </script>
-<!-- PAGE TITLE
-    ================================================== -->
-    <header class="py-8 py-md-11" style="background-image: none;">
-        <div class="container text-center py-xl-2">
-            <h1 class="display-4 fw-semi-bold mb-0">Courses</h1>
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb breadcrumb-scroll justify-content-center">
-                    <li class="breadcrumb-item">
-                        <a class="text-gray-800" href="#">
-                            Home
-                        </a>
-                    </li>
-                    <li class="breadcrumb-item text-gray-800 active" aria-current="page">
-                        Courses
-                    </li>
-                </ol>
-            </nav>
-        </div>
-        <!-- Img -->
-        <img class="d-none img-fluid" src="...html" alt="...">
-    </header>
+<!--&lt;!&ndash; PAGE TITLE-->
+<!--    ================================================== &ndash;&gt;-->
+<!--    <header class="py-8 py-md-11" style="background-image: none;">-->
+<!--        <div class="container text-center py-xl-2">-->
+<!--            <h1 class="display-4 fw-semi-bold mb-0">Courses</h1>-->
+<!--            <nav aria-label="breadcrumb">-->
+<!--                <ol class="breadcrumb breadcrumb-scroll justify-content-center">-->
+<!--                    <li class="breadcrumb-item">-->
+<!--                        <a class="text-gray-800" href="#">-->
+<!--                            Home-->
+<!--                        </a>-->
+<!--                    </li>-->
+<!--                    <li class="breadcrumb-item text-gray-800 active" aria-current="page">-->
+<!--                        Courses-->
+<!--                    </li>-->
+<!--                </ol>-->
+<!--            </nav>-->
+<!--        </div>-->
+<!--        &lt;!&ndash; Img &ndash;&gt;-->
+<!--        <img class="d-none img-fluid" src="...html" alt="...">-->
+<!--    </header>-->
 
 
     <!-- CONTROL BAR
     ================================================== -->
     <div class="container mb-6 mb-xl-8 z-index-2">
         <div class="d-lg-flex align-items-center mb-6 mb-xl-0">
-            <p class="mb-lg-0">We found <span class="text-dark">834 courses</span> available for you</p>
+            <p class="mb-lg-0">We found <span class="text-dark">9 courses</span> available for you</p>
             <div class="ms-lg-auto d-lg-flex flex-wrap">
                 <div class="mb-4 mb-lg-0 ms-lg-6">
                     <div class="border rounded d-flex align-items-center choices-label h-50p">
@@ -79,15 +79,20 @@ $(document).ready(function(){
     ================================================== -->
     <div class="container">
         <div class="row">
+
             <div class="col-xl-4 mb-5 mb-xl-0">
                 <!-- SIDEBAR FILTER
                 ================================================== -->
+
                 <div class=" vertical-scroll" id="courseSidebar">
                     <div class="border rounded mb-6 @@widgetBG">
                         <!-- Heading -->
+                        <a href="/courses" class="btn btn-primary btn-block ">Clear Filter</a>
                         <div id="coursefilter1">
                             <h4 class="mb-0">
+
                                 <button class="p-6 text-dark fw-medium d-flex align-items-center collapse-accordion-toggle line-height-one" type="button" data-bs-toggle="collapse" data-bs-target="#coursefiltercollapse1" aria-expanded="true" aria-controls="coursefiltercollapse1">
+
                                     Category
                                     <span class="ms-auto text-dark d-flex">
                                         <!-- Icon -->
@@ -306,6 +311,7 @@ $(document).ready(function(){
                         </div>
                     </div>
                     {% endfor %}
+
                 </div>
 
                 <!-- PAGINATION

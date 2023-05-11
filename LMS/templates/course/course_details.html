@@ -184,7 +184,7 @@
                                         </div>
 
                                          {% if check_enroll is not None %}
-                                            <a href="https://www.youtube.com/watch?v={{video.youtube_id}}">
+                                            <a href="/course/watch-course/{{course.slug}}">
                                                 <div class="ms-4" >
                                                 {{video.title}}
                                                 </div>
@@ -193,7 +193,7 @@
                                          {% else %}
 
                                         {% if video.preview == True %}
-                                            <a href="https://www.youtube.com/watch?v={{video.youtube_id}}}" class="rounded"  data-fancybox>
+                                            <a href="https://www.youtube.com/watch?v={{video.youtube_id}}" class="rounded"  data-fancybox>
                                                 <div class="ms-4">
                                                 {{video.title}}
                                             </div>

@@ -392,7 +392,7 @@
         <div class="px-5 px-lg-8 w-100">
             <div class="d-md-flex align-items-center">
                 <!-- Brand -->
-                <a class="navbar-brand mb-2 mb-md-0" href="index.html">
+                <a class="navbar-brand mb-2 mb-md-0" href="/">
                     <img src="{%static 'assets/img/head_brand.png' %}" class="navbar-brand-img" alt="...">
                 </a>
 
@@ -478,7 +478,8 @@
                                          <i class="fa fa-youtube-play" aria-hidden="true" style="color:red;"></i>
 
                                     </div>
-                                    <a href="?lecture={{video.id}}">
+<!--                                    <a href="?lecture={{video.id}}">-->
+                                     <a href="https://www.youtube.com/watch?v={{video.youtube_id}}}" class="rounded"  data-fancybox>
                                     <div class="ms-4">
                                         {{video.title}}
                                     </div>
