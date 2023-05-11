@@ -7,6 +7,7 @@ from django.contrib import messages
 from .settings import *
 import razorpay
 
+
 client = razorpay.Client(auth=(key_id, key_secret))
 from time import time
 from django.views.decorators.csrf import csrf_exempt
@@ -193,8 +194,10 @@ def CHECKOUT(request, slug):
 
 def MY_COURSE(request):
     course = UserCource.objects.filter(user=request.user)
+    discount = UserCource.objects.get
     context = {
-        'course': course
+        'course': course,
+        'discount': discount,
     }
     return render(request, 'course/my-course.html', context)
 
