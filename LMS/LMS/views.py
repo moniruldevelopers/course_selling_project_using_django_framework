@@ -195,6 +195,7 @@ def CHECKOUT(request, slug):
 def MY_COURSE(request):
     course = UserCource.objects.filter(user=request.user)
     discount = UserCource.objects.get
+
     context = {
         'course': course,
         'discount': discount,
