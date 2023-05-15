@@ -201,6 +201,7 @@ def MY_COURSE(request):
         'course': course,
         'discount': discount,
         'category' : category,
+
     }
     return render(request, 'course/my-course.html', context)
 
